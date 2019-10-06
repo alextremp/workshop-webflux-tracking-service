@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOGS" value="./logs" />
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %blue(%d{ISO8601}) %highlight(%-5level) [%green(%t)] %yellow(%logger{36}): %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!-- LOG everything at ERROR level -->
+    <root level="error">
+        <appender-ref ref="Console" />
+    </root>
+
+    <!-- LOG "com.github.alextremp.pulse*" -->
+    <logger name="com.github.alextremp.pulse" level="trace" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+</configuration>
