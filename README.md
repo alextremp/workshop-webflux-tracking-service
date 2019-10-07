@@ -71,6 +71,18 @@ cd workshop-webflux-tracking-service
 
 ### 1 Consume POST data containing a bunch of Pulses
 
+* Check
+    * _com.github.alextremp.pulse.domain.pulse.Pulse_ is our domain entity
+    * _com.github.alextremp.pulse.application.savepulses.SavePulsesUseCase_ is our application use case to save the received Pulses
+* Map the received request to 1..N Pulse
+    * The received request id will be the Pulse's clientId
+    * Consider using a UUID to set the Pulse id
+* The response:
+    * To ease the exercise, any individual Pulse event error will cause a request error.
+    * Return a PROCESSED code for OK requests.
+    * Return an ERROR code for failed requests.
+    * Consider adding a message additionally to the code in order to validate responses.
+
 (solved at branch: workshop/01-solved)
 
 ### 2 Create a Pulse logger
