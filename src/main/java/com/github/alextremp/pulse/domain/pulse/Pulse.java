@@ -1,5 +1,6 @@
 package com.github.alextremp.pulse.domain.pulse;
 
+import com.github.alextremp.pulse.domain.pulse.error.MandatoryFieldException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
@@ -12,13 +13,13 @@ public class Pulse {
 
   public Pulse(String id, String clientId, String name, Map<String, Object> payload) {
     if (StringUtils.isBlank(id)) {
-      throw new IllegalArgumentException("Id cannot be empty");
+      throw new MandatoryFieldException("Id");
     }
     if (StringUtils.isBlank(clientId)) {
-      throw new IllegalArgumentException("Client Id cannot be empty");
+      throw new MandatoryFieldException("Client Id");
     }
     if (StringUtils.isBlank(name)) {
-      throw new IllegalArgumentException("Name cannot be empty");
+      throw new MandatoryFieldException("Name");
     }
     this.id = id;
     this.clientId = clientId;
