@@ -38,7 +38,7 @@ public class PulseController {
   }
 
   private Mono<SavePulsesResponse> onSavePulsesError(Throwable error, String requestBody) {
-    return Mono.fromCallable(() -> new SavePulsesResponse("ERROR"))
+    return Mono.fromCallable(() -> SavePulsesResponse.error(error))
         .doOnNext(savePulsesResponse -> LOG.fine(() -> "ERROR::" + error.getMessage() + " - Received [" + requestBody + "]"));
   }
 }

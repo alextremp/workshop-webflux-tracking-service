@@ -1,6 +1,7 @@
 package com.github.alextremp.pulse.infrastructure.framework.configuration;
 
 import com.github.alextremp.pulse.application.savepulses.SavePulsesUseCase;
+import com.github.alextremp.pulse.domain.pulse.PulseFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfiguration {
 
   @Bean
-  SavePulsesUseCase createEventsUseCase() {
-    return new SavePulsesUseCase();
+  SavePulsesUseCase createEventsUseCase(PulseFactory pulseFactory) {
+    return new SavePulsesUseCase(pulseFactory);
   }
 }
