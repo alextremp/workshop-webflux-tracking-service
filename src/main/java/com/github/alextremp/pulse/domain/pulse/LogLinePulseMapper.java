@@ -2,9 +2,6 @@ package com.github.alextremp.pulse.domain.pulse;
 
 import reactor.core.publisher.Mono;
 
-/**
- * This is intentionally placed to an incorrect place :)
- */
 public class LogLinePulseMapper {
 
   private static final String PULSE = "PULSE";

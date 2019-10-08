@@ -39,7 +39,7 @@
     </logger>
 
     <!-- LOG "com.github.alextremp.pulse*" at INFO level -->
-    <logger name="com.github.alextremp.pulse.application.savepulses.SavePulsesUseCase" level="info" additivity="false">
+    <logger name="PULSE_EVENT_LOGGER" level="info" additivity="false">
         <appender-ref ref="PulseEventLogAppender" />
     </logger>
 
