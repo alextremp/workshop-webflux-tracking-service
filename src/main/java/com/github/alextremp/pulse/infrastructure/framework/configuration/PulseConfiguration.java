@@ -1,5 +1,6 @@
 package com.github.alextremp.pulse.infrastructure.framework.configuration;
 
+import com.github.alextremp.pulse.domain.pulse.LogLinePulseMapper;
 import com.github.alextremp.pulse.domain.pulse.PulseFactory;
 import com.github.alextremp.pulse.domain.pulse.PulseIdService;
 import com.github.alextremp.pulse.infrastructure.pulse.UUIDPulseIdService;
@@ -17,6 +18,11 @@ class PulseConfiguration {
   @Bean
   PulseIdService pulseIdService() {
     return new UUIDPulseIdService();
+  }
+
+  @Bean
+  LogLinePulseMapper logLinePulseMapper() {
+    return new LogLinePulseMapper();
   }
 
 }
