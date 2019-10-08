@@ -165,7 +165,23 @@ Now:
 * Create a specific Event that reflects a "Received Pulse Event".
 * Publish a received Pulse event to the domain event bus for each reaceived Pulse.
 * Check the Spring's [@EventListener](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/event/EventListener.html) annotation.
-* Develop an Observer consuming the emmitted events, which has to log the received events into our custom file logger with specific format.  
+* Develop an Observer consuming the emmitted events, which has to log the received events into our custom file logger with specific format.
+
+Tip: This is to enable our @EventListener processing in async mode:
+
+```
+@Configuration
+public class DomainEventBusConfiguration {
+
+  @Bean
+  ApplicationEventMulticaster applicationEventMulticaster() {
+    SimpleApplicationEventMulticaster eventMulticaster = new SimpleApplicationEventMulticaster();
+    eventMulticaster.setTaskExecutor(new SimpleAsyncTaskExecutor());
+    eventMulticaster.setErrorHandler(TaskUtils.LOG_AND_SUPPRESS_ERROR_HANDLER);
+    return eventMulticaster;
+  }
+}
+```  
 
 (solved at branch: workshop/03-solved)
 
