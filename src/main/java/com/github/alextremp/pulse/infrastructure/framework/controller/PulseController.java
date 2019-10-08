@@ -2,6 +2,7 @@ package com.github.alextremp.pulse.infrastructure.framework.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.alextremp.pulse.application.PulseApplicationService;
+import com.github.alextremp.pulse.application.savepulses.io.PulseEvent;
 import com.github.alextremp.pulse.application.savepulses.io.SavePulsesRequest;
 import com.github.alextremp.pulse.application.savepulses.io.SavePulsesResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,20 @@ public class PulseController {
   }
 
   private Mono<SavePulsesResponse> onSavePulsesError(Throwable error, String requestBody) {
-    return Mono.fromCallable(() -> SavePulsesResponse.error(error))
-        .doOnNext(savePulsesResponse -> LOG.fine(() -> "ERROR::" + error.getMessage() + " - Received [" + requestBody + "]"));
+    return Mono.fromCallable(() -> errorSavePulsesRequest(error, requestBody))
+        .doOnNext(savePulsesResponse -> LOG.fine(() -> "ERROR::" + error.getMessage() + " - Received [" + requestBody + "]"))
+        .flatMap(pulseApplicationService::savePulses)
+        .map(response -> SavePulsesResponse.error(error));
+  }
+
+  private SavePulsesRequest errorSavePulsesRequest(Throwable error, String requestBody) {
+    PulseEvent pulseEvent = new PulseEvent();
+    pulseEvent.setName("SAVE_PULSE_ERROR");
+    pulseEvent.getPayload().put("error", error);
+    pulseEvent.getPayload().put("requestBody", requestBody);
+    SavePulsesRequest request = new SavePulsesRequest();
+    request.setId(PulseController.class.getSimpleName());
+    request.setEvents(pulseEvent);
+    return request;
   }
 }

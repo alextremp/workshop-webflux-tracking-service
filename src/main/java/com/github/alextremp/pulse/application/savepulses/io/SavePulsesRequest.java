@@ -18,7 +18,7 @@ public class SavePulsesRequest {
     return events;
   }
 
-  public void setEvents(PulseEvent[] events) {
+  public void setEvents(PulseEvent... events) {
     this.events = events;
   }
 
